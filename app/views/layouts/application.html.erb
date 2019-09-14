@@ -13,27 +13,48 @@
 
     <header>
       <div class="header-logo">
-        <%= link_to("TweetApp","/") %>
+        <% if @current_user %>
+          <%= link_to("TweetApp", "/posts/index") %>
+        <% else %>
+          <%= link_to("TweetApp", "/") %>
+        <% end %>
       </div>
       <ul class="header-menus">
-        <li>
-        <%= link_to("TweetAppとは","/about") %>
-        </li>
-        <li>
-        <%= link_to("投稿一覧","/posts/index") %>
-        </li>
-        <li>
-        <%= link_to("新規投稿","/posts/new") %>
-        </li>
-        <li>
-        <%= link_to("ユーザー一覧","/users/index") %>
-        </li>
-        <li>
-        <%= link_to("新規登録","/signup") %>
-        </li>
-        <li>
-        <%= link_to("ログイン","/login") %>
-        </li>
+
+        <% if @current_user %>
+          <li>
+            <%= link_to(@current_user.name,"/users/#{@current_user.id}") %>
+            <!-- コードを追加し、ログイン中のユーザーのidを表示してください -->
+          </li>
+
+
+          <li>
+            <%= link_to("Index", "/posts/index") %>
+          </li>
+          <li>
+            <%= link_to("New Posts", "/posts/new") %>
+          </li>
+          <li>
+            <%= link_to("User", "/users/index") %>
+          </li>
+          <li>
+            <!-- ログアウト用のリンクを追加してください -->
+            <%= link_to("Logout", "/logout", {method: :post}) %>
+          </li>
+
+          <% else %>
+
+          <li>
+            <%= link_to("TweetApp", "/about") %>
+          </li>
+          <li>
+            <%= link_to("Register", "/signup") %>
+          </li>
+          <li>
+            <%= link_to("Login", "/login") %>
+          </li>
+
+          <% end %>
       </ul>
     </header>
     <!-- flash[:notice]に代入されたメッセージを表示してください -->
